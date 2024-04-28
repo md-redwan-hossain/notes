@@ -1,7 +1,9 @@
 - [env setup](#env-setup)
 - [debugging](#debugging)
-- [string](#string)
 - [const](#const)
+- [loop](#loop)
+- [function](#function)
+- [string](#string)
 - [array](#array)
 
 ### env setup
@@ -15,12 +17,85 @@ In php.ini,
 
 ### debugging
 
-`echo` can take n number of params.
-`print_r` is for arrays.
-`var_dump` gives more data.
+- `echo` can take n number of params.
+- `print_r` is for arrays.
+- `var_dump` gives more data.
+
+
+### const
+
+```php
+<?php
+    define(HOST,"localhost");
+    echo(HOST);
+?>
+```
+
+### loop
+
+```php
+<?php
+
+$arr = ["a","b","c"];
+
+foreach( $arr as $item){
+echo($item);
+}
+
+// Accessing Index
+foreach($arr as $i => $elem){
+    echo($i);
+    echo($elem);
+}
+
+// Associative array
+foreach($arr as $key => $value){
+    echo($arr[$key]);
+    echo($value);
+}
+
+?>
+```
+
+
+### function
+
+- To access a global variable inside a function, use `global $var_name;`
+- Arrow functions can also capture variables from the surrounding scope, unlike traditional closures, arrow functions do not need to be explicitly defined variables from scope.
+
+```php
+<?php
+// Anonymous function/closure
+$add = function($a, $b) {
+   return $a + $b;
+};
+
+// Arrow function
+$addArrow = fn($a, $b) => $a + $b;
+?>
+```
+
+
+```php
+<?php
+$factor = 10;
+
+// Closure
+$multiplier = function($n) use ($factor) {
+   return $n * $factor;
+};
+
+// Arrow function
+$multiplierArrow = fn($n) => $n * $factor;
+?>
+```
 
 
 ### string
+
+
+- `htmlspecialchars(string,flags,character-set,double_encode)`: Convert the predefined characters to HTML entities.
+
 
 
 
@@ -33,15 +108,6 @@ In php.ini,
 
     // concatenation
     echo $msg . "User";
-?>
-```
-
-### const
-
-```php
-<?php
-    define(HOST,"localhost");
-    echo(HOST);
 ?>
 ```
 
@@ -75,9 +141,34 @@ Associative:
 
 array methods:
 
-- `empty()` checks if an array is empty or not.
 - `in_array(search, array, type)`: Returns TRUE if the value is found in the array, or FALSE otherwise.
+
 - `array_push(array, value1, value2, ...)`: Returns the new number of elements in the array.
+
 - `array_pop(array)`: Returns the last value of array. If array is empty, or is not an array, NULL will be returned.
-- `array_filter(array, callbackfunction, flag)`: Returns the filtered array, key is preserved.
+
+- `array_filter(array, callbackfunction, flag)`: Returns the filtered array, key is preserved. To re-structure the indices, use `array_values`
+
 - `array_map(myfunction, array1, array2, array3, ...)`: Returns an array containing the values of array1, after applying the user-made function to each onel.
+
+- `count(array, mode)`: returns the number of elements in an array. `mode` is Optional Possible values:
+  - 0 - Default. Does not count all elements of multidimensional arrays
+  - 1 - Counts the array recursively (counts all the elements of multidimensional arrays)
+
+- `empty()` checks if an array is empty or not.
+
+- `range(low, high, step)`: creates an array containing a range of elements.  `step` is optional. It Specifies the increment used in the range. Default is 1
+
+
+```php
+<?php
+    // array_filter
+    $arr = array_filter(range(1, 20), fn($item) => $item % 2 == 0);
+
+    // array_map
+    $modified_arr = array_map(fn($item) => "Number {$item}", $arr);
+
+    // array_reduce
+    $sum = array_reduce($arr, fn($carry, $item) => $carry + $item);
+?>
+```
