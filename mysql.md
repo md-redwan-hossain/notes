@@ -1,8 +1,24 @@
 <!-- prepared statement -->
 
-- [string](#string)
-- [strict mode](#strict-mode)
-- [query performance](#query-performance)
+-   [data integrity](#data-integrity)
+-   [string](#string)
+-   [strict mode](#strict-mode)
+-   [query performance](#query-performance)
+
+### data integrity
+
+-   Unique constraint can be made of multiple columns.
+-   DB adds `CONSTRAINT` keyword if not added. Constraints can have name which is helpful for debugging.
+
+```sql
+CREATE TABLE customers(
+  email varchar(50) NOT NULL,
+  user_name varchar(50) NOT NULL,
+  phone varchar(50) NOT NULL,
+  CONSTRAINT unique_phone_number UNIQUE(phone),
+  UNIQUE(user_name, email)
+);
+```
 
 ### string
 
@@ -43,4 +59,4 @@ SET sql_mode = ''; -- nothing is applied
 
 ### query performance
 
-- subquery executes for each row while join executes once per 
+-   subquery executes for each row while join executes once per
