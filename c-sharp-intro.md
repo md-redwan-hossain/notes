@@ -76,6 +76,10 @@ namespace BlockScoped
 
 ### Class
 
+-   `readonly` means it can only be set either from constructor or by initialization.
+-   `const` means it can only be set by initialization.
+-   `static` members has to be accessed by class name.
+
 ```cs
 public class User
 {
@@ -83,7 +87,10 @@ public class User
     public const string Country = "BD";
 
     // static readonly field
-    public static readonly string Planet = "Earth";
+    public static readonly string Star = "Sun";
+
+    // readonly field
+    public readonly string Planet = "Earth";
 
     // field
     private bool _isEmailConfirmed;
@@ -202,6 +209,7 @@ public static class StringExtensions
 ### Type inference with `var` keyword
 
 -   Use the `var` keyword for a variable with initialization from which the compiler can infer a type.
+-   The motto is: type should be only visible in one side of variable declaration, either right or left. `var` is used when type is evident in the left side.
 
 ```cs
 using System;
