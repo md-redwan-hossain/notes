@@ -1,5 +1,7 @@
+-   [Solution and project](#solution-and-project)
 -   [Dotnet CLI](#dotnet-cli)
 -   [`Main` method and Top-level statement](#main-method-and-top-level-statement)
+-   [Naming convention](#naming-convention)
 -   [Namespace](#namespace)
 -   [Class](#class)
 -   [Record](#record)
@@ -12,10 +14,17 @@
 -   [Object initializer](#object-initializer)
 -   [Generics](#generics)
 -   [Type casting](#type-casting)
--   [Important Interfaces](#important-interfaces)
+-   [Important interfaces](#important-interfaces)
 -   [Lambda](#lambda)
 -   [Linq](#linq)
+-   [Null safety](#null-safety)
 -   [Asynchronous programming](#asynchronous-programming)
+
+### Solution and project
+
+-   In .NET, the terms "solution" and "project" are used to organize and manage your code.
+-   Project: A project (.csproj for C#, .fsproj for F#, .vbproj for VB.NET) contains all the files that are compiled into an assembly (DLL or Executable binary). A project also contains a list of references to other projects or assemblies that it depends on. Projects can be compiled separately.
+-   Solution: A solution (.sln) is a structure for organizing projects under one centralized file. It can contain one or more projects like class libraries, console apps, web apps. When a solutution is compiled, all the projects compiles inside it.
 
 ### Dotnet CLI
 
@@ -56,6 +65,23 @@ class Program
 -   Starting in C# 9, you don't have to explicitly include a Main method in a console application project. Instead, you can use the top-level statements feature to minimize the code you have to write. In this case, the compiler generates a class and Main method entry point for the application.
 -   An application must have only one entry point. A project can have only one file with top-level statements.
 -   A file with top-level statements can also contain namespaces and type definitions, but they must come after the top-level statements.
+
+### Naming convention
+
+| Object Name        | Notation    | Length | Plural | Abbreviation |
+| :----------------- | :---------- | -----: | :----- | :----------- |
+| Namespace name     | PascalCase  |    128 | Yes    | No           |
+| Class name         | PascalCase  |    128 | No     | No           |
+| Constructor name   | PascalCase  |    128 | No     | No           |
+| Method name        | PascalCase  |    128 | Yes    | No           |
+| Method arguments   | camelCase   |    128 | Yes    | Yes          |
+| Local variables    | camelCase   |     50 | Yes    | Yes          |
+| Constants name     | PascalCase  |     50 | No     | No           |
+| Field name Public  | PascalCase  |     50 | Yes    | Yes          |
+| Field name Private | \_camelCase |     50 | Yes    | Yes          |
+| Properties name    | PascalCase  |     50 | Yes    | Yes          |
+| Delegate name      | PascalCase  |    128 | No     | Yes          |
+| Enum type name     | PascalCase  |    128 | Yes    | No           |
 
 ### Namespace
 
@@ -280,7 +306,7 @@ class Employee : Person
 }
 ```
 
-### Important Interfaces
+### Important interfaces
 
 `IEnumerable<T>`: When we need a read-only operation, we can use `IEnumerable<T>`. It is for looping through the collection in the forward direction only. It supports deferred execution and filtering.
 
@@ -353,6 +379,15 @@ foreach (var number in numberMethodSyntax)
     Console.WriteLine(number);
 }
 ```
+
+### Null safety
+
+-   The null keyword is a literal that represents a null reference, one that does not refer to any object. null is the default value of reference-type variables. Ordinary value types cannot be null, except for nullable value types.
+-   If you're a .NET developer, chances are you've encountered the `System.NullReferenceException`. This occurs at run time when a null is de referenced; that is, when a variable is evaluated at runtime, but the variable refers to null.
+-   C# has a feature named `Nullability` which helps to mitigate `System.NullReferenceException` exception. For that, you must add this line in your `csproj` file: `<Nullable>enable</Nullable>`. Keep in mind, `Nullability` is a way to get compile-time warnings about possible null references, but it won't prevent null reference exceptions at runtime. You just express your intention here. Like `string?` means I wish to assign null here, while `string` means I won't assign `null` here. This is just your intension, because `string` is reference type, it is always nullable, not adding `?` won't make it non-nullable. But for value types, like `bool?`, this will change the behaviour of `bool`, now you can assign `null` along with `true` and `false`
+-   Use null-conditional operator for safe member access, `?.`, and safe element access, `?[]` like `student?.Courses?[2]`
+-   The null-coalescing operator `??` returns the value of its left-hand operand if it isn't null; otherwise, it evaluates the right-hand operand and returns its result.
+-   The null-coalescing assignment operator `??=` assigns the value of its right-hand operand to its left-hand operand only if the left-hand operand evaluates to null.
 
 ### Asynchronous programming
 
