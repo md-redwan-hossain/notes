@@ -1,23 +1,25 @@
-- [Dotnet CLI](#dotnet-cli)
-- [`Main` method and Top-level statement](#main-method-and-top-level-statement)
-- [Namespace](#namespace)
-- [Class](#class)
-- [Record](#record)
-- [Struct](#struct)
-- [Enum](#enum)
-- [Interface](#interface)
-- [Anonymous Type](#anonymous-type)
-- [Extension method](#extension-method)
-- [Type inference with `var` keyword](#type-inference-with-var-keyword)
-- [Object initializer](#object-initializer)
-- [Generics](#generics)
-- [Type casting](#type-casting)
-- [Important Interfaces](#important-interfaces)
-- [Lambda](#lambda)
-- [Linq](#linq)
-- [Asynchronous programming](#asynchronous-programming)
+-   [Dotnet CLI](#dotnet-cli)
+-   [`Main` method and Top-level statement](#main-method-and-top-level-statement)
+-   [Namespace](#namespace)
+-   [Class](#class)
+-   [Record](#record)
+-   [Struct](#struct)
+-   [Enum](#enum)
+-   [Interface](#interface)
+-   [Anonymous Type](#anonymous-type)
+-   [Extension method](#extension-method)
+-   [Type inference with `var` keyword](#type-inference-with-var-keyword)
+-   [Object initializer](#object-initializer)
+-   [Generics](#generics)
+-   [Type casting](#type-casting)
+-   [Important Interfaces](#important-interfaces)
+-   [Lambda](#lambda)
+-   [Linq](#linq)
+-   [Asynchronous programming](#asynchronous-programming)
 
 ### Dotnet CLI
+
+-   `<...>` is for placeholder purpose, actual input will be any valid string without `<` `>`
 
 ```bash
 # create new solution
@@ -30,7 +32,7 @@ dotnet new list
 dotnet new <type> --output <output_location> --name <project_name>
 
 # add project to solution
-dotnet solution add <project_path>.csproj
+dotnet sln add <project_path>.csproj
 
 # add a nuget pkg
 dotnet add package Dumpify
