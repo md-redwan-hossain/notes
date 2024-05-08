@@ -1,24 +1,24 @@
--   [Solution and project](#solution-and-project)
--   [Dotnet CLI](#dotnet-cli)
--   [`Main` method and Top-level statement](#main-method-and-top-level-statement)
--   [Naming convention](#naming-convention)
--   [Namespace](#namespace)
--   [Class](#class)
--   [Record](#record)
--   [Struct](#struct)
--   [Enum](#enum)
--   [Interface](#interface)
--   [Anonymous Type](#anonymous-type)
--   [Extension method](#extension-method)
--   [Type inference with `var` keyword](#type-inference-with-var-keyword)
--   [Object initializer](#object-initializer)
--   [Generics](#generics)
--   [Type casting](#type-casting)
--   [Important interfaces](#important-interfaces)
--   [Lambda](#lambda)
--   [Linq](#linq)
--   [Null safety](#null-safety)
--   [Asynchronous programming](#asynchronous-programming)
+- [Solution and project](#solution-and-project)
+- [Dotnet CLI](#dotnet-cli)
+- [`Main` method and Top-level statement](#main-method-and-top-level-statement)
+- [Naming convention](#naming-convention)
+- [Namespace](#namespace)
+- [Class](#class)
+- [Record](#record)
+- [Struct](#struct)
+- [Enum](#enum)
+- [Interface](#interface)
+- [Anonymous Type](#anonymous-type)
+- [Extension method](#extension-method)
+- [Type inference with `var` keyword](#type-inference-with-var-keyword)
+- [Object initializer](#object-initializer)
+- [Generics](#generics)
+- [Type casting](#type-casting)
+- [Important interfaces](#important-interfaces)
+- [Lambda](#lambda)
+- [Linq](#linq)
+- [Null safety](#null-safety)
+- [Asynchronous programming](#asynchronous-programming)
 
 ### Solution and project
 
@@ -221,8 +221,6 @@ var products = new[]
 ### Extension method
 
 ```cs
-using System.Linq;
-
 namespace LearningCSharp;
 
 public static class StringExtensions
@@ -317,9 +315,6 @@ class Employee : Person
 `IQueryable<T>`: Use for working with Database, processing will be done in the DB side. Fetched data can be translated to ICollection or IList easily.
 
 ```cs
-using System;
-using System.Collections.Generic;
-
 IEnumerable<int> digitsEnumerable = [10, 20, 30, 35, 55, 66];
 ICollection<int> digitsCollection = [10, 20, 30, 35, 55, 66];
 IList<int> digitsList = [10, 20, 30, 35, 55, 66];
@@ -351,10 +346,6 @@ var square = static (int x) => x * factor; // ERROR
 ### Linq
 
 ```cs
-using System;
-using System.Collections.Generic;
-using System.Linq;
-
 // 1. Data source
 IList<int> digitsEnumerable = [10, 20, 30, 35, 55, 66];
 
@@ -391,6 +382,12 @@ foreach (var number in numberMethodSyntax)
 
 ### Asynchronous programming
 
+-   The core of async programming is the `Task` and `Task<T>` objects, which model asynchronous operations. They are supported by the async and await keywords.
+-   For I/O-bound code, you await an operation that returns a `Task` or `Task<T>` inside of an `async` method.
+-   For CPU-bound code, you await an operation that is started on a background thread with the `Task.Run` method.
+
+I/O-bound example:
+
 ```cs
     public class Todo
     {
@@ -407,4 +404,27 @@ foreach (var number in numberMethodSyntax)
         var todos = await response.Content.ReadFromJsonAsync<List<Todo>>();
         return todos ?? [];
     }
+```
+
+CPU-bound example:
+
+```cs
+public class TaskRunner
+{
+    public void RunTask()
+    {
+        Task.Run(() => new LongRunningTaskService().PerformTask());
+        Console.WriteLine("TaskRunner continues to execute...");
+    }
+}
+
+public class LongRunningTaskService
+{
+    public void PerformTask()
+    {
+        // Simulate long running task
+        Thread.Sleep(5000);
+        Console.WriteLine("Long running task has completed.");
+    }
+}
 ```
