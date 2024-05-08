@@ -145,6 +145,10 @@ public class User
 
 ### Record
 
+-   A record is a speacial type of class.
+-   Useful for carrying read-only data like DTO. By default, Record types are immutable.
+-   Two instances of record can be compared by `=` operator which is not possible with class.
+
 ```cs
 public record AppUserLoginRequest(string UserName, string Password);
 ```
@@ -153,6 +157,7 @@ public record AppUserLoginRequest(string UserName, string Password);
 
 -   `struct` is value type, that means memory is allocated in stack rather than heap.
 -   A `struct` type can't inherit from other class or structure type and it can't be the base of a class. However, a structure type can implement interfaces.
+-   A `struct` must always have a Parameterless constructor, either the default one or user-defiend. This is enforced by language design.
 
 ```cs
 public struct Person
@@ -177,6 +182,8 @@ public struct Person
 ```
 
 ### Enum
+
+-   The default underlying numeric type of Enum is `int`, it can be changed as well.
 
 ```cs
 public enum BlogStatus : byte
@@ -220,10 +227,13 @@ var products = new[]
 
 ### Extension method
 
-```cs
-namespace LearningCSharp;
+-   Extension methods enable you to "add" methods to existing types without creating a new derived type, recompiling, or otherwise modifying the original type.
+-   Extension methods are static methods, but they're called as if they were instance methods on the extended type.
+-   The main advantage of the extension method is to add new methods in the existing class without using inheritance.
+-   you need `this` keyword and the target type which will be extended as the first parameter.
 
-public static class StringExtensions
+```cs
+public static class MyExtensions
 {
     public static bool IsConstantCase(this string text)
     {
