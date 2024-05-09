@@ -1,24 +1,36 @@
-- [Solution and project](#solution-and-project)
-- [Dotnet CLI](#dotnet-cli)
-- [`Main` method and Top-level statement](#main-method-and-top-level-statement)
-- [Naming convention](#naming-convention)
-- [Namespace](#namespace)
-- [Class](#class)
-- [Record](#record)
-- [Struct](#struct)
-- [Enum](#enum)
-- [Interface](#interface)
-- [Anonymous Type](#anonymous-type)
-- [Extension method](#extension-method)
-- [Type inference with `var` keyword](#type-inference-with-var-keyword)
-- [Object initializer](#object-initializer)
-- [Generics](#generics)
-- [Type casting](#type-casting)
-- [Important interfaces](#important-interfaces)
-- [Lambda](#lambda)
-- [Linq](#linq)
-- [Null safety](#null-safety)
-- [Asynchronous programming](#asynchronous-programming)
+-   [Dotnet](#dotnet)
+-   [Solution and project](#solution-and-project)
+-   [Dotnet CLI](#dotnet-cli)
+-   [`Main` method and Top-level statement](#main-method-and-top-level-statement)
+-   [Naming convention](#naming-convention)
+-   [Namespace](#namespace)
+-   [Class](#class)
+-   [Record](#record)
+-   [Struct](#struct)
+-   [Enum](#enum)
+-   [Interface](#interface)
+-   [Anonymous Type](#anonymous-type)
+-   [Extension method](#extension-method)
+-   [Type inference with `var` keyword](#type-inference-with-var-keyword)
+-   [Object initializer](#object-initializer)
+-   [Generics](#generics)
+-   [Type casting](#type-casting)
+-   [Important interfaces](#important-interfaces)
+-   [Lambda](#lambda)
+-   [Linq](#linq)
+-   [Null safety](#null-safety)
+-   [Asynchronous programming](#asynchronous-programming)
+-   [Delegate (`Func`, `Action`, `Predicate`)](#delegate-func-action-predicate)
+
+### Dotnet
+
+. NET is an open-source platform for building desktop, web, and mobile applications that can run natively on any operating system. Dotnet SDK contains necessary runtimes compiling and executing dotnet applications. .NET has evolved over the years into different implementations, .NET Core is cross platform and recommended.
+
+When discussing .NET support policies, it's important to note the duration of support for both LTS and STS releases:
+
+-   **LTS (Long-Term Support)**: LTS releases are maintained for at least **three years** after the initial release. They are intended for users who prioritize stability and longer-term support over having the latest features. LTS releases are a good choice for applications that will be in production for a long time and that don't need the latest features or improvements.
+
+-   **STS (Short-Term Support)**: STS releases are maintained for about **15 months** after the initial release. They are intended for users who want to use the latest features and improvements as soon as they are available. STS releases are a good choice for applications that can be updated to newer versions of .NET more frequently, or for applications that need the latest features or improvements.
 
 ### Solution and project
 
@@ -435,6 +447,80 @@ public class LongRunningTaskService
         // Simulate long running task
         Thread.Sleep(5000);
         Console.WriteLine("Long running task has completed.");
+    }
+}
+```
+
+### Delegate (`Func`, `Action`, `Predicate`)
+
+-   Delegate can be described as type-safe function pointer.
+-   Since delegates hold references to methods, you can pass methods as arguments to other methods via the delegates. Therefore, delegates are ideal for defining callback methods.
+-   Delegates are immutable. It means that a delegate cannot be changed once it is created.
+-   Delegate can be declared outside of class.
+
+```cs
+public delegate void Callback(string message);
+
+// Create a method for a delegate.
+public static void DelegateMethod(string message)
+{
+    Console.WriteLine(message);
+}
+
+// Instantiate the delegate.
+Callback handler = DelegateMethod;
+
+// Call the delegate.
+handler("Hello World");
+```
+
+-   `Func`, `Action`, and `Predicate` are all built-in delegate types in C#. They are generic and can be used with any type.
+
+-   `Func` and `Action` can take 0-16 argument.
+-   The last parameter in `Func` is reserved for return type because `Func` always return something.
+-   `Action` is similar to Func except `Action` doesn’t have any return type.
+-   `Predicate` takes one parameter and must return bool.
+
+```cs
+public class MyClass
+{
+    public void UseFunc(Func<int, string> converter)
+    {
+        const int number = 123;
+        var result = converter(number);
+        Console.WriteLine(result);
+    }
+
+    public void UseAction(Action<string> messagePrinter)
+    {
+        const string message = "Hello, World!";
+        messagePrinter(message);
+    }
+
+    public void UsePredicate(Predicate<int> checker)
+    {
+        const int number = 4;
+        var isEven = checker(number);
+        Console.WriteLine(isEven);
+    }
+}
+
+
+
+public class UseBuiltInDelegate
+{
+    public void ExecuteMethods()
+    {
+        var myClass = new MyClass();
+
+        string MyFunc(int number) => number.ToString();
+        myClass.UseFunc(MyFunc);
+
+        void MyAction(string message) => Console.WriteLine(message);
+        myClass.UseAction(MyAction);
+
+        bool MyPredicate(int number) => number % 2 == 0;
+        myClass.UsePredicate(MyPredicate);
     }
 }
 ```
