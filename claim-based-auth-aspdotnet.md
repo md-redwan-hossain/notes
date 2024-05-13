@@ -24,20 +24,25 @@ builder.Services
 
 var app = builder.Build();
 
-app.MapPost("/cookie-auth", async (HttpContext context) =>
-{
-    var claim = new Claim(ClaimTypes.NameIdentifier, Guid.NewGuid().ToString(), ClaimValueTypes.String);
-    var userIdentity = new ClaimsIdentity([claim], CookieAuthenticationDefaults.AuthenticationScheme);
-    var claimsPrincipal = new ClaimsPrincipal(userIdentity);
-
-    await context.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimsPrincipal);
-});
-
-
 app.MapGet("/cookie-auth", (HttpContext context) =>
 {
     var userId = context.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
     return Results.Ok(userId ?? "User id not found");
+});
+
+
+app.MapPost("/cookie-auth", async (HttpContext context, [FromQuery] bool persist) =>
+{
+    var claim = new Claim(ClaimTypes.NameIdentifier, Guid.NewGuid().ToString(), ClaimValueTypes.String);
+    var userIdentity = new ClaimsIdentity([claim], CookieAuthenticationDefaults.AuthenticationScheme);
+    var claimsPrincipal = new ClaimsPrincipal(userIdentity);
+    var authenticationProperties = new AuthenticationProperties { IsPersistent = persist };
+
+    await context.SignInAsync(
+        CookieAuthenticationDefaults.AuthenticationScheme,
+        claimsPrincipal,
+        authenticationProperties
+    );
 });
 
 
