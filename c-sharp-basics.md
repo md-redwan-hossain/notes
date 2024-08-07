@@ -169,8 +169,7 @@ public record AppUserLoginRequest(string UserName, string Password);
 
 -   `struct` is value type, that means memory is allocated in stack rather than heap.
 -   A `struct` type can't inherit from other class or structure type and it can't be the base of a class. However, a structure type can implement interfaces.
--   A `struct` must always have a Parameterless constructor, either the default one or user-defiend. This is enforced by language design.
-
+-   Unlike `class`, a `struct` always has a Parameterless default constructor which is not overridden when paramterized constructor is added.
 ```cs
 public struct Person
 {
