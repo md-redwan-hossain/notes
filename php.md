@@ -28,6 +28,7 @@ In php.ini,
 <?php
     define(HOST,"localhost");
     echo(HOST);
+    const ANOTHER_CONSTANT = 1;
 ?>
 ```
 
