@@ -56,16 +56,57 @@ foreach($arr as $key => $value){
 }
 
 ?>
-```
 
+### Null
+- The null is a special type in PHP. It indicates the absence of a value for a variable.
+- To check if a variable is null or not, you use the is_null() function.
+- When you use the `unset()` function to unset a variable, the variable is also null. 
+```
+### type hint
+- type hints ensure that PHP will check the type of a value at the call time and throw a TypeError if there is a mismatch.
+- Basic types: `bool` `int` `float` `string` `null` `true` `false` `void` `object` `resource` `array` `mixed`
+- Union type: `int | string`
+- Nullable type: `?string`
+- To enable strict typing, you can use the `declare(strict_types=1);` directive at the beginning of the file.
+- PHP enables the strict mode on a per-file basis.
+- When you include code from another file, PHP uses the mode of the caller.
 
 ### function
 
 - To access a global variable inside a function, use `global $var_name;`
 - Arrow functions can also capture variables from the surrounding scope, unlike traditional closures, arrow functions do not need to be explicitly defined variables from scope.
-
+- Use the ... operator to define a variadic function. Only the last parameter can be variadic.
 ```php
 <?php
+
+// regular function
+function concat_two_string(string $str1, string $str2) : strng
+{
+    return $str1 . $str2;
+}
+
+// Variadic function
+function sum(int ...$numbers): int
+{
+    $total = 0;
+    for ($i = 0; $i < count($numbers); $i++) {
+        $total += $numbers[$i];
+    }
+
+    return $total;
+}
+
+// Named Arguments
+function find(string $needle, string $haystack)
+{
+    return strpos($haystack, $needle);
+}  
+
+find (
+    $needle : 'awesome',
+    $haystack : 'PHP is awesome!'
+);
+
 // Anonymous function/closure
 $add = function($a, $b) {
    return $a + $b;
@@ -171,5 +212,26 @@ array methods:
 
     // array_reduce
     $sum = array_reduce($arr, fn($carry, $item) => $carry + $item);
+?>
+```
+
+## Interface
+- Specifies which methods and properties a class must implement.
+- It is strongly recommended that developers use the same parameter names as the interface being implemented.
+- To implement an interface, the `implements` operator is used.
+- Classes may implement more than one interface if desired by separating each interface with a comma.
+- Interfaces can be extended like classes using the `extends` operator.
+- It's possible for interfaces to have constants. Interface constants work exactly like class constants.
+
+### Enum
+```php
+<?php
+enum Suit
+{
+    case Hearts;
+    case Diamonds;
+    case Clubs;
+    case Spades;
+}
 ?>
 ```
