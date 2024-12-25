@@ -64,7 +64,7 @@ foreach($arr as $key => $value){
 ```
 ### type hint
 - type hints ensure that PHP will check the type of a value at the call time and throw a TypeError if there is a mismatch.
-- Basic types: `bool` `int` `float` `string` `null` `true` `false` `void` `object` `resource` `array` `mixed`
+- Basic types: `bool` `int` `float` `string` `null` `true` `false` `void` `object` `resource` `array` `mixed` `never`
 - Union type: `int | string`
 - Nullable type: `?string`
 - To enable strict typing, you can use the `declare(strict_types=1);` directive at the beginning of the file.
